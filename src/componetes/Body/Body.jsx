@@ -3,7 +3,9 @@ import api from '../../api'
 import * as C from './BodyStyles'
 import img1 from '../../imgs/food-and-restaurant.png'
 
+
 import { Produtos } from '../Produtos/TodosProdutos'
+import { Link, Route, Routes } from 'react-router-dom'
 
 export const Body = ({active , SetmodaData})=>{
     const [cate,setCate] = useState([])
@@ -29,16 +31,19 @@ export const Body = ({active , SetmodaData})=>{
 
     const handlClick = (data)=>{
         SetmodaData(data)
+
     }
 
 
     return(
         <C.Container>
-            <h1 className='text-base text-white'>Selecione Alguma Categoria</h1>
+            <h1 className='text-base text-white'>Selecione Alguma Categoria </h1>
             <C.Categorias>
-                <C.Cates>
-                    <img src={img1} alt="" />
-                </C.Cates>
+                <Link to={'/'}>
+                    <C.Cates>
+                        <img src={img1} alt="" />
+                    </C.Cates>
+                </Link>
                 {cate.map((item)=>(
                     <C.Cates key={item.id}>
                         <img src={item.image} alt="" width={50}/>
@@ -47,14 +52,21 @@ export const Body = ({active , SetmodaData})=>{
             </C.Categorias>
 
             <C.Produtos>
-                {produts.map((item)=>(
-                    <Produtos
-                        key={item.id}
-                        data={item}
-                        ac={active}
-                        onclick={handlClick}
+                <Routes>
+                    <Route 
+                        path='/'
+                        element={produts.map((item)=>(
+                            <Produtos
+                                key={item.id}
+                                data={item}
+                                ac={active}
+                                onclick={handlClick}
+                            />
+                        ))}
                     />
-                ))}
+
+                </Routes>
+
             </C.Produtos>
         </C.Container>
     )
